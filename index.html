@@ -1,4 +1,3 @@
-# yujiawei001.github.io
 <!DOCTYPE html>
 <html>
   <head>
@@ -15,20 +14,56 @@
     </style>
     <script src="https://js.arcgis.com/3.23/"></script>
     <script>
-      var map;
-
-      require(["esri/map", "dojo/domReady!"], function(Map) {
-        map = new Map("map", {
-          basemap: "topo",  //For full list of pre-defined basemaps, navigate to http://arcg.is/1JVo6Wd
-          center: [-122.45, 37.75], // longitude, latitude
-          zoom: 13
-        });
-      });
+    	var map;
+   
+    	
+    	function addmap(){
+    	
+ 			var longitude=document.getElementById('text_x').value;
+			var latitude=document.getElementById('text_y').value;
+			var level=document.getElementById('text_zoom').value;
+			var maps=document.getElementById('MapSelect').value;
+      require(["esri/map", "dojo/domReady!"], 
+      
+	      function(Map) {
+	        map = new Map("map", {
+	          basemap: maps,  //For full list of pre-defined basemaps, navigate to http://arcg.is/1JVo6Wd
+	          center: [longitude, latitude], // longitude, latitude
+	          zoom: level
+	        });
+	      });
+    	}
+    	
+    	function refreshmap(){
+    		var longitude=document.getElementById('text_x').value;
+				var latitude=document.getElementById('text_y').value;
+				var level=document.getElementById('text_zoom').value;
+				var maps=document.getElementById('MapSelect').value;
+    		map.centerAndZoom([longitude,latitude],level);
+     		map.setBasemap(maps);
+     	}
+      
     </script>
   </head>
 
   <body>
-    <div id="map"></div>
+    <div id="map">
+    	<div id="div_1">
+			<input type="button" id="btn_show" value="显示地图" onclick="addmap()" />
+			<input type="button" id="btn_refresh" value="刷新地图" onclick="refreshmap()" />
+		    <!--添加文本控件-->
+		    	底图
+		    <select name="选择运算符号" id="MapSelect">
+		    	<option value="topo">topo</option>
+		    	<option value="dark-gray">dark-gray</option>
+		    </select>
+		    	经度
+		    <input type="text" id="text_x" value="" />
+		   		纬度
+		    <input type="text" id="text_y" value="" />
+		    	缩放级别
+		    <input type="text" id="text_zoom" value="" />
+		</div>
+    </div>
   </body>
 </html>
- 
